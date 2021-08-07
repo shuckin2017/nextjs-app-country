@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 
 const countriesSortBy = (countries, value, direction) => {
@@ -50,11 +51,11 @@ export default function CountriesList({ countries }) {
           onClick={toggleDirect}
         >
           <p>Название</p>
-          <SortArrow />
+          <SortArrow direction={direction} />
         </button>
         <button
           className="flex flex-1 hover:text-gray-300 active:text-gray-400"
-          onClick={() => setValueDirection}
+          onClick={() => setValueDirection("name")}
         >
           <p>Популяция</p>
           <SortArrow direction={direction} />
@@ -68,14 +69,14 @@ export default function CountriesList({ countries }) {
         </button>
         <button
           className="flex flex-1 hover:text-gray-300 active:text-gray-400 hidden lg:flex"
-          onClick={toggleDirect}
+          onClick={() => setValueDirection("capital")}
         >
-          <p>Сталица</p>
+          <p>Столица</p>
           <SortArrow direction={direction} />
         </button>
         <button
           className="flex flex-1 hover:text-gray-300 active:text-gray-400 hidden lg:flex"
-          onClick={toggleDirect}
+          onClick={() => setValueDirection("area")}
         >
           <p>Площадь</p>
           <SortArrow direction={direction} />
@@ -83,22 +84,24 @@ export default function CountriesList({ countries }) {
       </div>
       <div>
         {setSortCountries.map((country) => (
-          <div className="country-item flex justify-between py-5 px-4 bg-white rounded-xl text-gray-700 text-md mt-4 shadow-sm hover:shadow-lg transition-all">
-            {/* <img
-              src={country.flag}
-              alt=""
-              className="hidden lg:block h-auto w-10 mr-3 bg-auto"
-            /> */}
-            <div className="flex-1">{country.name}</div>
-            <div className="flex-1">{country.population}</div>
-            <div className="flex-1 hidden lg:block">
-              {country.region || "none"}
+          <Link href={`/country/${country.alpha3Code}`}>
+            <div className="country-item flex justify-between py-5 px-4 bg-white rounded-xl text-gray-700 text-md mt-4 shadow-sm hover:shadow-lg transition-all">
+              <img
+                src={country.flag}
+                alt=""
+                className="hidden lg:block h-auto w-10 mr-3 bg-auto"
+              />
+              <div className="flex-1">{country.name}</div>
+              <div className="flex-1">{country.population}</div>
+              <div className="flex-1 hidden lg:block">
+                {country.region || "none"}
+              </div>
+              <div className="flex-1 hidden lg:block">
+                {country.capital || "none"}
+              </div>
+              <div className="flex-1 hidden lg:block">{country.area || 0}</div>
             </div>
-            <div className="flex-1 hidden lg:block">
-              {country.capital || "none"}
-            </div>
-            <div className="flex-1 hidden lg:block">{country.area || 0}</div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
