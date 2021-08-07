@@ -84,11 +84,11 @@ export default function CountriesList({ countries }) {
       <div>
         {setSortCountries.map((country) => (
           <div className="country-item flex justify-between py-5 px-4 bg-white rounded-xl text-gray-700 text-md mt-4 shadow-sm hover:shadow-lg transition-all">
-            <img
+            {/* <img
               src={country.flag}
               alt=""
               className="hidden lg:block h-auto w-10 mr-3 bg-auto"
-            />
+            /> */}
             <div className="flex-1">{country.name}</div>
             <div className="flex-1">{country.population}</div>
             <div className="flex-1 hidden lg:block">
